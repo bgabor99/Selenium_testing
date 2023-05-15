@@ -90,6 +90,19 @@ public class FirstSeleniumTest {
         }  
     }
 
+    @Test
+    public void testSearchFoundAndClickOne() {
+        System.out.println("---- testSearchFoundAndClickOne ----");
+        MainPage mainPage = new MainPage(this.driver);
+
+        SearchResultPage searchResultPage = mainPage.search("polo");
+        String bodyText = searchResultPage.getBodyText();
+        //System.out.println(bodyText);
+        Assert.assertTrue(bodyText.contains("ADD TO CART"));
+        Assert.assertTrue(bodyText.contains("Navy"));
+        searchResultPage.clickHyperLinkByText("Navy");
+    }
+
     @After
     public void close() {
         if (driver != null) {
