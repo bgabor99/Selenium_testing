@@ -15,6 +15,11 @@ class SearchResultPage extends PageBase {
 
     public SearchResultPage(WebDriver driver) {
         super(driver);
-    }    
-           
+        //waitAndReturnElement(bodyLocator);
+    }
+
+    public void clickHyperLinkByText(String textName){
+        By locator = By.xpath("//*[contains(text(),'" + textName + "')]//ancestor::a");
+        waitAndReturnElement(locator).click();
+    }
 }
