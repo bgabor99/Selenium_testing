@@ -11,16 +11,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
 
-class SearchResultPage extends PageBase {
+class SpecificProductPage extends PageBase {
 
-    public SearchResultPage(WebDriver driver) {
+    public SpecificProductPage(WebDriver driver) {
         super(driver);
-        //waitAndReturnElement(bodyLocator);
     }
 
-    public SpecificProductPage clickHyperLinkByText(String textName){
+    
+    public void clickHyperLinkByText(String textName){
         By locator = By.xpath("//h2/a[contains(text(),'" + textName + "')]//ancestor::a");
         waitAndReturnElement(locator).click();
-        return new SpecificProductPage(this.driver);
     }
 }
