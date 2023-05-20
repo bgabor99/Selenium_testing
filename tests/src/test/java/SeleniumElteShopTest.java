@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.NoSuchElementException;
 import java.util.*;  
 
@@ -25,7 +26,7 @@ public class SeleniumElteShopTest {
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         driver.manage().window().maximize();
     }
-/*
+
     @Test
     public void testMainPageFooter() {
         System.out.println("---- testMainPageFooter ----");
@@ -195,7 +196,7 @@ public class SeleniumElteShopTest {
 
     @Test
     public void testHoverAccountMenuAndLogOff() {
-        System.out.println("---- testAccountLogOff ----");
+        System.out.println("---- testHoverAccountMenuAndLogOff ----");
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.clickLoginPageBtn();
         LoggedInAccountPage loggedInAccountPage = loginPage.login();
@@ -203,7 +204,7 @@ public class SeleniumElteShopTest {
         loginPage = loggedInAccountPage.logOff();
         Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
     }
-*/
+
     @Test
     public void testHistoryPreviousPage() {
         System.out.println("---- testHistoryPreviousPage ----");
@@ -212,6 +213,16 @@ public class SeleniumElteShopTest {
         Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
         driver.navigate().back();
         Assert.assertTrue(mainPage.driver.getTitle().contains("ELTE Shop"));
+    }
+
+    @Test
+    public void testAvoidCookiePopup() {
+        System.out.println("---- testAvoidCookiePopup ----");
+        MainPage mainPage = new MainPage(this.driver);
+        Assert.assertTrue(mainPage.getCookieDivText().contains("Cookie"));
+        driver.manage().addCookie(new Cookie("auroraNanobarAccepted","1"));
+        driver.navigate().refresh();
+        Assert.assertTrue(mainPage.getCookieDivText().contains("TimeoutException"));
     }
 
     @After

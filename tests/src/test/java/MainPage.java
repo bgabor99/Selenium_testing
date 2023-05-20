@@ -2,6 +2,7 @@ import org.junit.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,6 +18,7 @@ class MainPage extends PageBase {
     private By searchBarTogglerBy = By.xpath("//footer[@class='d-print-none']");
     private By searchBarBy = By.id("filter_keyword");
     private By loginPageBtnBy = By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/a");
+    private By cookieDivBy = By.xpath("//*/div[contains(text(),'cookie')]");
     
     public MainPage(WebDriver driver) {
         super(driver);
@@ -36,5 +38,14 @@ class MainPage extends PageBase {
     public LoginPage clickLoginPageBtn() {
         this.waitAndReturnElement(loginPageBtnBy).click();
         return new LoginPage(this.driver);
+    }
+
+    public String getCookieDivText() {
+        try {
+            return this.waitAndReturnElement(cookieDivBy).getText();
+        } catch (Exception e) {
+            return e.toString();
+        }
+        
     }
 }
