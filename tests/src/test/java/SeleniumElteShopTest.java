@@ -192,7 +192,7 @@ public class SeleniumElteShopTest {
         loggedInAccountPage = editAccountPage.editFirstName("TestName");
         Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
     }
-*/
+
     @Test
     public void testHoverAccountMenuAndLogOff() {
         System.out.println("---- testAccountLogOff ----");
@@ -202,6 +202,16 @@ public class SeleniumElteShopTest {
         loggedInAccountPage.hoverAccountMenu();
         loginPage = loggedInAccountPage.logOff();
         Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
+    }
+*/
+    @Test
+    public void testHistoryPreviousPage() {
+        System.out.println("---- testHistoryPreviousPage ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
+        driver.navigate().back();
+        Assert.assertTrue(mainPage.driver.getTitle().contains("ELTE Shop"));
     }
 
     @After
