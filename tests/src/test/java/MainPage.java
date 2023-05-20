@@ -20,8 +20,8 @@ class MainPage extends PageBase {
     public MainPage(WebDriver driver) {
         super(driver);
         this.driver.get("https://elteshop.com/");
-    }    
-    
+    }
+
     public String getFooterText() {
         return this.waitAndReturnElement(footerBy).getText();
     }
