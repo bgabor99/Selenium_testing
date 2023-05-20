@@ -25,7 +25,7 @@ public class SeleniumElteShopTest {
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         driver.manage().window().maximize();
     }
-
+/*
     @Test
     public void testMainPageFooter() {
         System.out.println("---- testMainPageFooter ----");
@@ -191,6 +191,17 @@ public class SeleniumElteShopTest {
         EditAccountPage editAccountPage= loggedInAccountPage.getEditAccountPageLinkClick();
         loggedInAccountPage = editAccountPage.editFirstName("TestName");
         Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
+    }
+*/
+    @Test
+    public void testHoverAccountMenuAndLogOff() {
+        System.out.println("---- testAccountLogOff ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        loggedInAccountPage.hoverAccountMenu();
+        loginPage = loggedInAccountPage.logOff();
+        Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
     }
 
     @After

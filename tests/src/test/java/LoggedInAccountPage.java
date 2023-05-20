@@ -1,9 +1,15 @@
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.Action;
+
+import org.apache.bcel.generic.ACONST_NULL;
 import org.junit.*;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -13,13 +19,17 @@ import org.openqa.selenium.NoSuchElementException;
 
 class LoggedInAccountPage extends PageBase {
 
+    private Actions actions;
     private By headTitleBy = By.className("page-head-title");
     private By newLetterLinkBy = By.xpath("//*/a[contains(text(),'Subscribe / unsubscribe to newsletter')]");
     private By editAccountLink = By.xpath("//*/a[contains(text(), 'Edit your account')]");
     private By subscribeSuccesAlertBy = By.xpath("//*[@id='mm-0']/div[2]/main/div[2]/div/section/div/div[2]/div[1]");
+    private WebElement accountMenu;
+    private By logOffBtn = By.xpath("//*/li/a[contains(text(),'Log Off')]");
 
     public LoggedInAccountPage(WebDriver driver) {
         super(driver);
+        this.actions = new Actions(driver);
     }
 
     public String getHeadTitleText() {
@@ -27,17 +37,30 @@ class LoggedInAccountPage extends PageBase {
     }
 
     public NewsLetterPage getNewsLetterPageLinkClick() {
-        this.waitAndReturnElement(newLetterLinkBy).click();;
+        this.waitAndReturnElement(newLetterLinkBy).click();
         return new NewsLetterPage(driver);
     }
 
     public EditAccountPage getEditAccountPageLinkClick() {
-        this.waitAndReturnElement(editAccountLink).click();;
+        this.waitAndReturnElement(editAccountLink).click();
         return new EditAccountPage(driver);
     }
 
     public String getSuccesAlertText() {
         return this.waitAndReturnElement(subscribeSuccesAlertBy).getText();
     }
+
+    public void hoverAccountMenu() {
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+        Actions actions = new Actions(driver);
+        accountMenu = driver.findElement(By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/a"));
+        actions.moveToElement(accountMenu).build().perform();
+    }
+
+    public LoginPage logOff() {
+        this.waitAndReturnElement(logOffBtn).click();
+        return new LoginPage(driver);
+    }
+
 
 }
