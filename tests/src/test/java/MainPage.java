@@ -16,6 +16,7 @@ class MainPage extends PageBase {
     private By footerBy = By.className("d-print-none");
     private By searchBarTogglerBy = By.xpath("//footer[@class='d-print-none']");
     private By searchBarBy = By.id("filter_keyword");
+    private By loginPageBtnBy = By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/a");
     
     public MainPage(WebDriver driver) {
         super(driver);
@@ -28,8 +29,12 @@ class MainPage extends PageBase {
     
     public SearchResultPage search(String searchQuery) {
         this.waitAndReturnElement(searchBarTogglerBy).click();
-        
         this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery + "\n");
         return new SearchResultPage(this.driver);
+    }
+
+    public LoginPage clickLoginPageBtn() {
+        this.waitAndReturnElement(loginPageBtnBy).click();
+        return new LoginPage(this.driver);
     }
 }
