@@ -15,6 +15,7 @@ class LoggedInAccountPage extends PageBase {
 
     private By headTitleBy = By.className("page-head-title");
     private By newLetterLinkBy = By.xpath("//*/a[contains(text(),'Subscribe / unsubscribe to newsletter')]");
+    private By editAccountLink = By.xpath("//*/a[contains(text(), 'Edit your account')]");
     private By subscribeSuccesAlertBy = By.xpath("//*[@id='mm-0']/div[2]/main/div[2]/div/section/div/div[2]/div[1]");
 
     public LoggedInAccountPage(WebDriver driver) {
@@ -28,6 +29,11 @@ class LoggedInAccountPage extends PageBase {
     public NewsLetterPage getNewsLetterPageLinkClick() {
         this.waitAndReturnElement(newLetterLinkBy).click();;
         return new NewsLetterPage(driver);
+    }
+
+    public EditAccountPage getEditAccountPageLinkClick() {
+        this.waitAndReturnElement(editAccountLink).click();;
+        return new EditAccountPage(driver);
     }
 
     public String getSuccesAlertText() {

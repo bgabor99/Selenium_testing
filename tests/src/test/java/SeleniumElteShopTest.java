@@ -172,8 +172,8 @@ public class SeleniumElteShopTest {
     }
 
     @Test
-    public void testNewsLetterUnPageSubscribeRadioBtn() {
-        System.out.println("---- testNewsLetterUnPageSubscribeRadioBtn ----");
+    public void testNewsLetterPageUnSubscribeRadioBtn() {
+        System.out.println("---- testNewsLetterPageUnSubscribeRadioBtn ----");
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.clickLoginPageBtn();
         LoggedInAccountPage loggedInAccountPage = loginPage.login();
@@ -182,6 +182,16 @@ public class SeleniumElteShopTest {
         Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
     }
 
+    @Test
+    public void testEditAccountPageFormSend() {
+        System.out.println("---- testEditAccountFormSend ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        EditAccountPage editAccountPage= loggedInAccountPage.getEditAccountPageLinkClick();
+        loggedInAccountPage = editAccountPage.editFirstName("TestName");
+        Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
+    }
 
     @After
     public void close() {
