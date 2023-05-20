@@ -130,6 +130,58 @@ public class SeleniumElteShopTest {
         Assert.assertTrue(specificProductPage.driver.getTitle().contains("fa jegyzetcsipesz"));
     }
 
+    @Test
+    public void testLoginPageHeadTitle() {
+        System.out.println("---- testLoginPageHeadTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        //System.out.println(loginPage.getHeadTitleText());
+        Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
+    }
+
+    @Test
+    public void testLoginPageFillAndLoggedAccountPageHeadTitle() {
+        System.out.println("---- testLoginPageFill ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        System.out.println(loggedInAccountPage.getHeadTitleText());
+        Assert.assertTrue(loggedInAccountPage.getHeadTitleText().contains("MY ACCOUNT"));
+    }
+
+    @Test
+    public void testNewsLetterPageTitle() {
+        System.out.println("---- testNewsLetterPageTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        NewsLetterPage newsLetterPage = loggedInAccountPage.getNewsLetterPageLinkClick();
+        //System.out.println(newsLetterPage.getHeadTitleText());
+        Assert.assertTrue(newsLetterPage.getHeadTitleText().contains("NEWSLETTER SUBSCRIPTION"));
+    }
+
+    @Test
+    public void testNewsLetterPageSubscribeRadioBtn() {
+        System.out.println("---- testNewsLetterPageSubscribeRadioBtn ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        NewsLetterPage newsLetterPage = loggedInAccountPage.getNewsLetterPageLinkClick();
+        loggedInAccountPage = newsLetterPage.subscribe();
+        Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
+    }
+
+    @Test
+    public void testNewsLetterUnPageSubscribeRadioBtn() {
+        System.out.println("---- testNewsLetterUnPageSubscribeRadioBtn ----");
+        MainPage mainPage = new MainPage(this.driver);
+        LoginPage loginPage = mainPage.clickLoginPageBtn();
+        LoggedInAccountPage loggedInAccountPage = loginPage.login();
+        NewsLetterPage newsLetterPage = loggedInAccountPage.getNewsLetterPageLinkClick();
+        loggedInAccountPage = newsLetterPage.unsubscribe();
+        Assert.assertTrue(loggedInAccountPage.getSuccesAlertText().contains("Success"));
+    }
+
 
     @After
     public void close() {
