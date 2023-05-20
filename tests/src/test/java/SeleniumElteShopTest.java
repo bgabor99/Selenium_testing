@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 
-public class FirstSeleniumTest {
+public class SeleniumElteShopTest {
     public WebDriver driver;
     
     @Before
@@ -34,12 +34,19 @@ public class FirstSeleniumTest {
         Assert.assertTrue(mainPage.getFooterText().contains("Partners"));
         Assert.assertTrue(mainPage.getFooterText().contains("SHOP"));
     }
+
+    @Test
+    public void testMainPageTitle() {
+        System.out.println("---- testMainPageTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        //System.out.println(mainPage.driver.getTitle());
+        Assert.assertTrue(mainPage.driver.getTitle().contains("ELTE Shop"));
+    }
     
     @Test
     public void testSearchFound() {
         System.out.println("---- testSearchFound ----");
         MainPage mainPage = new MainPage(this.driver);
-        //Assert.assertTrue(mainPage.getFooterText().contains("SHOP"));
 
         SearchResultPage searchResultPage = mainPage.search("polo");
         String bodyText = searchResultPage.getBodyText();
@@ -52,7 +59,6 @@ public class FirstSeleniumTest {
     public void testSearchNotFound() {
         System.out.println("---- testSearchNotFound ----");
         MainPage mainPage = new MainPage(this.driver);
-        //Assert.assertTrue(mainPage.getFooterText().contains("SHOP"));
 
         SearchResultPage searchResultPage = mainPage.search("virag");
         String bodyText = searchResultPage.getBodyText();
@@ -69,8 +75,6 @@ public class FirstSeleniumTest {
             MainPage mainPage = new MainPage(this.driver);
             SearchResultPage searchResultPage = mainPage.search(searchQuery);
             String bodyText = searchResultPage.getBodyText();
-            //System.out.println(bodyText);
-            //System.out.println(" -------- ");
             Assert.assertTrue(bodyText.contains("ADD TO CART"));
         }  
     }
@@ -84,8 +88,6 @@ public class FirstSeleniumTest {
             MainPage mainPage = new MainPage(this.driver);
             SearchResultPage searchResultPage = mainPage.search(searchQuery);
             String bodyText = searchResultPage.getBodyText();
-            //System.out.println(bodyText);
-            //System.out.println(" -------- ");
             Assert.assertTrue(bodyText.contains("Not match for this search criteria"));
         }  
     }
@@ -97,7 +99,7 @@ public class FirstSeleniumTest {
         MainPage mainPage = new MainPage(this.driver);
         //Assert.assertTrue(mainPage.getFooterText().contains("SHOP"));
 
-        SearchResultPage searchResultPage = mainPage.search("fa jegyzetcsipesz");
+        SearchResultPage searchResultPage = mainPage.search("jegyzetcsipesz");
         String bodyText = searchResultPage.getBodyText();
         //System.out.println(bodyText);
         Assert.assertTrue(bodyText.contains("ADD TO CART"));
@@ -108,6 +110,26 @@ public class FirstSeleniumTest {
         //System.out.println(bodyText);
         Assert.assertTrue(bodyText.contains("Manufacturer"));
     }
+
+    @Test
+    public void testSearchPageTitle() {
+        System.out.println("---- testSearchFoundAndClickOne ----");
+        MainPage mainPage = new MainPage(this.driver);
+        SearchResultPage searchResultPage = mainPage.search("jegyzetcsipesz");
+        //System.out.println(specificProductPage.driver.getTitle());
+        Assert.assertTrue(searchResultPage.driver.getTitle().contains("Search"));
+    }
+
+    @Test
+    public void testSpecificProductPageTitle() {
+        System.out.println("---- testSpecificProductPageTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        SearchResultPage searchResultPage = mainPage.search("jegyzetcsipesz");
+        SpecificProductPage specificProductPage = searchResultPage.clickHyperLinkByText("fa jegyzetcsipesz");
+        //System.out.println(specificProductPage.driver.getTitle());
+        Assert.assertTrue(specificProductPage.driver.getTitle().contains("fa jegyzetcsipesz"));
+    }
+
 
     @After
     public void close() {
