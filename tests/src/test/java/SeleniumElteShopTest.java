@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 
 public class SeleniumElteShopTest {
     public WebDriver driver;
-    
+
     @Before
     public void setup()  throws MalformedURLException  {
         ChromeOptions options = new ChromeOptions();
@@ -245,12 +245,24 @@ public class SeleniumElteShopTest {
     }
 
     @Test
-    public void testBeacPageSortDropDownTitle() {
-        System.out.println("---- testBeacPageSortDropDownTitle ----");
+    public void testBeacPageDragAndDropPize() {
+        System.out.println("---- testBeacPageDragAndDropPize ----");
         MainPage mainPage = new MainPage(this.driver);
         BeacPage beacPage = mainPage.clickBeacLink();
         beacPage = beacPage.dragAndDropPrize();
         Assert.assertTrue(beacPage.getShowNumberOfProductsDivText().contains("Showing 1 to 1"));
+    }
+
+    @Test
+    public void testKeepBrowserOpen() {
+        ChromeOptions options = new ChromeOptions();
+        options.setExperimentalOption("detach", true);
+        try {
+            driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @After
