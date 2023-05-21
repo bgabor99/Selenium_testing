@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -200,8 +201,7 @@ public class SeleniumElteShopTest {
         MainPage mainPage = new MainPage(this.driver);
         LoginPage loginPage = mainPage.clickLoginPageBtn();
         LoggedInAccountPage loggedInAccountPage = loginPage.login();
-        loggedInAccountPage.hoverAccountMenu();
-        loginPage = loggedInAccountPage.logOff();
+        loginPage = loggedInAccountPage.hoverAccountMenuAndLogOff();
         Assert.assertTrue(loginPage.getHeadTitleText().contains("LOGIN"));
     }
 

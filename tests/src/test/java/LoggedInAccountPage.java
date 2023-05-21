@@ -19,17 +19,18 @@ import org.openqa.selenium.NoSuchElementException;
 
 class LoggedInAccountPage extends PageBase {
 
-    private Actions actions;
     private By headTitleBy = By.className("page-head-title");
     private By newLetterLinkBy = By.xpath("//*/a[contains(text(),'Subscribe / unsubscribe to newsletter')]");
     private By editAccountLink = By.xpath("//*/a[contains(text(), 'Edit your account')]");
     private By subscribeSuccesAlertBy = By.xpath("//*[@id='mm-0']/div[2]/main/div[2]/div/section/div/div[2]/div[1]");
     private WebElement accountMenu;
-    private By logOffBtn = By.xpath("//*/li/a[contains(text(),'Log Off')]");
+    private By accountMenuBy = By.xpath("//*/span[contains(text(),'Welcome')]//ancestor::a");
+    private WebElement btnLogOff;
+    private By btnLogOffBy = By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/ul/li[4]/a");
+
 
     public LoggedInAccountPage(WebDriver driver) {
         super(driver);
-        this.actions = new Actions(driver);
     }
 
     public String getHeadTitleText() {
@@ -50,17 +51,19 @@ class LoggedInAccountPage extends PageBase {
         return this.waitAndReturnElement(subscribeSuccesAlertBy).getText();
     }
 
-    public void hoverAccountMenu() {
+    public LoginPage hoverAccountMenuAndLogOff() {
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         Actions actions = new Actions(driver);
-        accountMenu = driver.findElement(By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/a"));
+        accountMenu = driver.findElement(accountMenuBy);
         actions.moveToElement(accountMenu).build().perform();
-    }
-
-    public LoginPage logOff() {
-        this.waitAndReturnElement(logOffBtn).click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        btnLogOff = driver.findElement(btnLogOffBy);
+        actions.click(btnLogOff).perform();
         return new LoginPage(driver);
     }
-
 
 }
