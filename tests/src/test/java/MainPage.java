@@ -19,6 +19,7 @@ class MainPage extends PageBase {
     private By searchBarBy = By.id("filter_keyword");
     private By loginPageBtnBy = By.xpath("//*[@id='section-header']/header/div/nav/div[1]/div[4]/div[1]/ul/li/a");
     private By cookieDivBy = By.xpath("//*/div[contains(text(),'cookie')]");
+    private By beacLinkBy = By.xpath("//*[@id='cat_181']/a");
     
     public MainPage(WebDriver driver) {
         super(driver);
@@ -38,6 +39,11 @@ class MainPage extends PageBase {
     public LoginPage clickLoginPageBtn() {
         this.waitAndReturnElement(loginPageBtnBy).click();
         return new LoginPage(this.driver);
+    }
+
+    public BeacPage clickBeacLink() {
+        this.waitAndReturnElement(beacLinkBy).click();
+        return new BeacPage(this.driver);
     }
 
     public String getCookieDivText() {

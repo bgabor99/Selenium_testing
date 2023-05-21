@@ -225,6 +225,25 @@ public class SeleniumElteShopTest {
         Assert.assertTrue(mainPage.getCookieDivText().contains("TimeoutException"));
     }
 
+
+    @Test
+    public void testBeacPageTitle() {
+        System.out.println("---- testBeacPageTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        BeacPage beacPage = mainPage.clickBeacLink();
+        Assert.assertTrue(beacPage.getHeadTitleText().contains("ELTE BEAC"));
+    }
+
+    @Test
+    public void testBeacPageSortDropDownTitle() {
+        System.out.println("---- testBeacPageSortDropDownTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        BeacPage beacPage = mainPage.clickBeacLink();
+        Assert.assertTrue(beacPage.getSortDropDownValue().contains("Low < High"));
+        beacPage = beacPage.clickSortDropDown();
+        Assert.assertTrue(beacPage.getSortDropDownValue().contains("High > Low"));
+    }
+
     @After
     public void close() {
         if (driver != null) {
