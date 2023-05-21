@@ -244,6 +244,15 @@ public class SeleniumElteShopTest {
         Assert.assertTrue(beacPage.getSortDropDownValue().contains("High > Low"));
     }
 
+    @Test
+    public void testBeacPageSortDropDownTitle() {
+        System.out.println("---- testBeacPageSortDropDownTitle ----");
+        MainPage mainPage = new MainPage(this.driver);
+        BeacPage beacPage = mainPage.clickBeacLink();
+        beacPage = beacPage.dragAndDropPrize();
+        Assert.assertTrue(beacPage.getShowNumberOfProductsDivText().contains("Showing 1 to 1"));
+    }
+
     @After
     public void close() {
         if (driver != null) {
