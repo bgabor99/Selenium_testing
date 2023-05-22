@@ -5,10 +5,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import org.openqa.selenium.Cookie;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.net.MalformedURLException;
 
 
 public class SeleniumElteShopTest {
+
+    private HashMap<String, String> testPagesAndExpectedTitleMap = new HashMap<String, String>();
     public WebDriver driver;
 
     @Before
@@ -16,6 +20,21 @@ public class SeleniumElteShopTest {
         ChromeOptions options = new ChromeOptions();
         driver = new RemoteWebDriver(new URL("http://selenium:4444/wd/hub"), options);
         driver.manage().window().maximize();
+
+    }
+
+    @Test
+    public void testStaticPagesAndItsTitleTexts() {
+        testPagesAndExpectedTitleMap.put("https://elteshop.com/", "ELTE Shop");
+        testPagesAndExpectedTitleMap.put("https://elteshop.com/beac-181", "ELTE BEAC");
+        testPagesAndExpectedTitleMap.put("https://elteshop.com/outlet-182", "ELTE outlet");
+
+        for (Map.Entry<String, String> entry : testPagesAndExpectedTitleMap.entrySet()) {
+            String page = entry.getKey();
+            String expectedTitle = entry.getValue();
+            driver.get(page);
+            Assert.assertTrue(driver.getTitle().contains(expectedTitle));
+        }
     }
 
     @Test
