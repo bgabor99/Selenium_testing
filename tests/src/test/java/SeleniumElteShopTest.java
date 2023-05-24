@@ -2,7 +2,6 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
 import org.openqa.selenium.Cookie;
 import java.net.URL;
 import java.util.HashMap;
@@ -194,11 +193,10 @@ public class SeleniumElteShopTest {
     public void testAvoidCookiePopup() {
         MainPage mainPage = new MainPage(this.driver);
         Assert.assertTrue(mainPage.getCookieDivText().contains("Cookie"));
-        driver.manage().addCookie(new Cookie("auroraNanobarAccepted","1"));
+        driver.manage().addCookie(mainPage.getAcceptCookie());
         driver.navigate().refresh();
         Assert.assertTrue(mainPage.getCookieDivText().contains("TimeoutException"));
     }
-
 
     @Test
     public void testBeacPageTitle() {
@@ -221,6 +219,7 @@ public class SeleniumElteShopTest {
         MainPage mainPage = new MainPage(this.driver);
         BeacPage beacPage = mainPage.clickBeacLink();
         beacPage = beacPage.dragAndDropPrize();
+        System.out.println(beacPage.getShowNumberOfProductsDivText());
         Assert.assertTrue(beacPage.getShowNumberOfProductsDivText().contains("Showing 1 to 1"));
     }
 

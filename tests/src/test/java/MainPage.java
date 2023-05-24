@@ -1,9 +1,12 @@
 import org.openqa.selenium.WebDriver;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 
 
 class MainPage extends PageBase {
 
+    private ImmutablePair<String, String> cookieAcceptValueAndKeyPair = ImmutablePair.of("auroraNanobarAccepted", "1");
     private By footerBy = By.className("d-print-none");
     private By searchBarTogglerBy = By.xpath("//footer[@class='d-print-none']");
     private By searchBarBy = By.id("filter_keyword");
@@ -36,12 +39,15 @@ class MainPage extends PageBase {
         return new BeacPage(this.driver);
     }
 
+    public Cookie getAcceptCookie(){
+        return new Cookie(cookieAcceptValueAndKeyPair.left, cookieAcceptValueAndKeyPair.right);
+    }
+
     public String getCookieDivText() {
         try {
             return this.waitAndReturnElement(cookieDivBy).getText();
         } catch (Exception e) {
             return e.toString();
         }
-        
     }
 }
